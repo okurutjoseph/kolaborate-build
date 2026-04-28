@@ -1,3 +1,66 @@
+# Kolaborate Build Challenge (MVP)
+
+Next.js + **Clerk** (auth) + **Convex** (backend) + **OpenAI** (brief analysis).
+
+## Prereqs
+- Node.js 20+
+- A Clerk app
+- An OpenAI API key
+
+## Setup
+
+1) Install deps
+
+```bash
+cd kolaborate-build
+npm install
+```
+
+2) Convex (local)
+
+```bash
+npx convex dev
+```
+
+This writes `NEXT_PUBLIC_CONVEX_URL` to `.env.local`.
+
+3) Clerk
+- In Clerk Dashboard, enable the **Convex integration** and copy your **Frontend API domain** (dev looks like `https://verb-noun-00.clerk.accounts.dev`).
+- Set these env vars:
+  - In `kolaborate-build/.env.local`:
+    - `CLERK_PUBLISHABLE_KEY`
+    - `CLERK_SECRET_KEY`
+  - In Convex env vars:
+    - `CLERK_JWT_ISSUER_DOMAIN` (the Frontend API domain)
+
+You can set the Convex env var via:
+
+```bash
+npx convex env set CLERK_JWT_ISSUER_DOMAIN "https://<your-domain>.clerk.accounts.dev"
+```
+
+4) OpenAI (used by a Convex action)
+- Set in Convex env vars:
+  - `OPENAI_API_KEY`
+  - optionally `OPENAI_MODEL` (defaults to `gpt-4o-mini`)
+
+```bash
+npx convex env set OPENAI_API_KEY "<your-key>"
+```
+
+5) Run the app
+
+```bash
+npm run dev
+```
+
+Visit:
+- `/` marketing
+- `/sign-up` and `/sign-in`
+- `/onboarding/role`
+- `/client/projects/new` (AI analysis + create project)
+- `/freelancer/profile` then `/freelancer/matches`
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
